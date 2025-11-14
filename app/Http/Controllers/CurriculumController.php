@@ -161,7 +161,6 @@ class CurriculumController extends Controller
         $ruta = $image->storeAs('curriculum', $name, 'public');
 
         // Vuelve a guardar en "storage/app/curriculum" sin ser público (local)
-        // ⚠️ IMPORTANTE: esta línea sobrescribe la variable anterior
         $ruta = $image->storeAs('curriculum', $name, 'local');
         
         // Devuelve la última ruta guardada (local)
@@ -180,7 +179,6 @@ class CurriculumController extends Controller
       $ruta = $pdf->storeAs('pdf',$name,'public'); 
 
       // Vuelve a guardarlo en /local/pdf
-      // ⚠️ Igual que antes, esta línea pisa la anterior
       $ruta = $pdf->storeAs('pdf',$name,'local');
 
       return $ruta;
