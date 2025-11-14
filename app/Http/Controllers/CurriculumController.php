@@ -38,6 +38,22 @@ class CurriculumController extends Controller
      */
     public function store(Request $request) : RedirectResponse
     {
+        //Validación de Datos
+        $request->validate([
+        'name' => 'required|string|max:60',
+        'surname' => 'required|string|max:100',
+        'surname2' => 'required|string|max:120',
+        'phone' => 'required|string|max:11|unique:curriculum,phone',
+        'email' => 'required|email|max:30',
+        'born_date' => 'required|date_format:Y-m-d',
+        'medium_mark' => 'required|numeric|between:0,9.9',
+        'experience' => 'required|string',
+        'formation' => 'required|string',
+        'skills' => 'required|string',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048|unique:curriculum,image',
+        'pdf' => 'nullable|mimes:pdf|max:5120',
+            ]);
+        
          // Crea un nuevo objeto Curriculum con todos los datos del formulario
          $curriculum = new Curriculum($request->all()); 
 
@@ -116,6 +132,21 @@ class CurriculumController extends Controller
     {
          $result=false;
 
+        //Validación de Datos
+        $request->validate([
+        'name' => 'required|string|max:60',
+        'surname' => 'required|string|max:100',
+        'surname2' => 'required|string|max:120',
+        'phone' => 'required|string|max:11|unique:curriculum,phone',
+        'email' => 'required|email|max:30',
+        'born_date' => 'required|date_format:Y-m-d',
+        'medium_mark' => 'required|numeric|between:0,9.9',
+        'experience' => 'required|string',
+        'formation' => 'required|string',
+        'skills' => 'required|string',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048|unique:curriculum,image',
+        'pdf' => 'nullable|mimes:pdf|max:5120',
+            ]);
          // Actualiza el modelo con los datos enviados
          $curriculum->fill($request->all());
 
