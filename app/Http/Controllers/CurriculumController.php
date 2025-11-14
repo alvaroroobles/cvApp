@@ -12,7 +12,7 @@ class CurriculumController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() : View
     {
         // Obtiene todos los currículums con Eloquent (SELECT * FROM curriculums)
         $curriculums = Curriculum::all();
@@ -24,7 +24,7 @@ class CurriculumController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() : View
     {
         // Simplemente muestra el formulario de creación
         return view('curriculum.create');
@@ -33,7 +33,7 @@ class CurriculumController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
          // Crea un nuevo objeto Curriculum con todos los datos del formulario
          $curriculum = new Curriculum($request->all()); 
@@ -92,7 +92,7 @@ class CurriculumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Curriculum $curriculum)
+    public function show(Curriculum $curriculum) : View
     {
         // Muestra un currículum en concreto
         return view('curriculum.show', ['curriculum' => $curriculum]);
@@ -101,7 +101,7 @@ class CurriculumController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Curriculum $curriculum)
+    public function edit(Curriculum $curriculum) : View
     {
        // Muestra la vista de edición con los datos cargados
        return view('curriculum.edit', ['curriculum' => $curriculum]);
@@ -110,7 +110,7 @@ class CurriculumController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Curriculum $curriculum)
+    public function update(Request $request, Curriculum $curriculum) : RedirectResponse
     {
          $result=false;
 
@@ -189,7 +189,7 @@ class CurriculumController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Curriculum $curriculum)
+    public function destroy(Curriculum $curriculum) : RedirectResponse
     {
         try {
             // Borra el registro
