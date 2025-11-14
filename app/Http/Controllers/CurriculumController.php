@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\QueryException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Illuminate\Support\Facades\Storage;
 
 class CurriculumController extends Controller
 {
@@ -187,6 +188,10 @@ class CurriculumController extends Controller
     public function destroy(Curriculum $curriculum) : RedirectResponse
     {
         try {
+            //Borramos la imagen
+            if($curriculum->image && Storage::disk('public')->exists($curriculum->image)){
+                Storage::disk('public')->delete($curriculum->image);
+            }
             // Borra el registro
             $result = $curriculum->delete();
             $textMessage = 'El curriculum se ha eliminado.';
