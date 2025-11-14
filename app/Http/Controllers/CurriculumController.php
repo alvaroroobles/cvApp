@@ -6,6 +6,8 @@ use App\Models\Curriculum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\QueryException;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 class CurriculumController extends Controller
 {
@@ -72,8 +74,7 @@ class CurriculumController extends Controller
             // Si un campo se envía nulo donde no debería
             $txtmessage='Campo nulo';
          } catch(\Exception $e){
-            // Dump completo de la excepción para depurar (interrumpe la ejecución)
-            dd($e->getMessage(), $e->getFile(), $e->getLine());
+            $txtmessage='Excepción General';
          }
 
          // Mensaje que se enviará al redirect
@@ -151,7 +152,7 @@ class CurriculumController extends Controller
          }
     }
     
-    private function upload(Request $request, Curriculum $curriculum) {
+    private function upload(Request $request, Curriculum $curriculum) : String {
 
         // Obtiene el archivo de imagen
         $image = $request->file('image');
@@ -161,15 +162,12 @@ class CurriculumController extends Controller
 
         // Guarda en "storage/app/public/curriculum"
         $ruta = $image->storeAs('curriculum', $name, 'public');
-
-        // Vuelve a guardar en "storage/app/curriculum" sin ser público (local)
-        $ruta = $image->storeAs('curriculum', $name, 'local');
         
         // Devuelve la última ruta guardada (local)
         return $ruta;
     }
 
-    private function uploadPDF(Request $request, Curriculum $curriculum){
+    private function uploadPDF(Request $request, Curriculum $curriculum) : String{
 
       // Obtiene el PDF
       $pdf = $request->file('pdf');
@@ -179,10 +177,7 @@ class CurriculumController extends Controller
 
       // Lo guarda en /public/pdf
       $ruta = $pdf->storeAs('pdf',$name,'public'); 
-
-      // Vuelve a guardarlo en /local/pdf
-      $ruta = $pdf->storeAs('pdf',$name,'local');
-
+        
       return $ruta;
     }
 
