@@ -124,9 +124,8 @@ class CurriculumController extends Controller
             if($request->hasFile('image')){
                // Sube la imagen
                $ruta = $this->upload($request, $curriculum);
-
-               // ⚠️ Aquí NO se está guardando en el campo image de la DB
-               // (posible bug)
+               $curriculum->image = $ruta;   // ← guardar la nueva ruta
+               $curriculum->save();
             }
          }
          catch(UniqueConstraintViolationException $e){
