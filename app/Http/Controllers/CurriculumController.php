@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Curriculum;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+use Illuminate\Http\RedirectResponse;
 
 class CurriculumController extends Controller
 {
